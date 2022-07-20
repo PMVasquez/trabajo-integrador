@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import PosteosUsuario from "@/views/PosteosUsuario.vue";
+import Posteos from "@/views/PosteosView.vue";
 
 Vue.use(VueRouter);
 
@@ -11,16 +13,24 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/usuarios",
+    name: "usuarios",
+    component: () => import("@/views/UsuariosView.vue"),
+  },
+  {
+    path: "/posteosUsuario/:userId",
+    name: "posteosUsuario",
+    props: true,
+    component: PosteosUsuario,
+  },
+  {
+    path: "/posteos",
+    name: "posteos",
+    component: Posteos,
   },
 ];
 
+/* se crea el router, indicando url base y le pasamos el arreglo de routers */
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
