@@ -1,34 +1,43 @@
 <template>
   <div class="container">
-    <div class="row">
-      <ol class="list-group list-group-numbered">
-        <div class="col-sm-12" v-for="(posteo, index) in posteos" :key="index">
-          <li
-            class="list-group-item d-flex justify-content-between align-items-start"
+    <div class="form-group">
+      <div class="row">
+        <span class="bi bi-file-text" style="text-align: left">
+          {{ nombreUsuario }} - Posteos
+        </span>
+        <ol class="list-group list-group-numbered">
+          <div
+            class="col-sm-12"
+            v-for="(posteo, index) in posteos"
+            :key="index"
           >
-            <div class="ms-2 me-auto" style="text-align: left">
-              <div class="text-uppercase" style="text-align: left">
-                {{ posteo.title }}
-                <span
-                  class="badge bg-primary rounded-pill"
-                  @click="mostrarOcultarPosteo(posteo.id)"
-                >
-                  Ver
-                </span>
+            <li
+              class="list-group-item d-flex justify-content-between align-items-start"
+            >
+              <div class="ms-2 me-auto" style="text-align: left">
+                <div class="text-uppercase" style="text-align: left">
+                  {{ posteo.title }}
+                  <span
+                    class="bi bi-eye"
+                    @click="mostrarOcultarPosteo(posteo.id)"
+                  >
+                  </span>
+                </div>
+                <div v-if="verPosteo & (idSel == posteo.id)">
+                  <CardPosteo :posteo="posteo" :mostrarTitulo="false" />
+                </div>
               </div>
-              <span v-if="verPosteo & (idSel == posteo.id)">
-                <CardPosteo :posteo="posteo" :mostrarTitulo="false" />
-              </span>
-            </div>
-          </li>
-        </div>
-      </ol>
+            </li>
+          </div>
+        </ol>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import CardPosteo from "@/components/CardPosteo.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "PosteosUsuario",
   components: { CardPosteo },
@@ -39,6 +48,9 @@ export default {
       verPosteo: false,
       idSel: 0,
     };
+  },
+  computed: {
+    ...mapGetters(["nombreUsuario"]),
   },
   async created() {
     this.$http

@@ -5,6 +5,7 @@ import store from "./store";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;

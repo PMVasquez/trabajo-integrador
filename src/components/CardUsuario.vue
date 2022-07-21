@@ -1,9 +1,14 @@
 <template>
-  <div class="sm-2 me-auto" style="text-align: left">
+  <div class="ms-2 me-auto" style="text-align: left">
     <div class="fw-bold">
       {{ usuario.name }}
       <router-link :to="`/posteosUsuario/${usuario.id}`" v-show="linkPosteo">
-        <span class="badge bg-primary rounded-pill">posteos</span>
+        <span
+          class="bi bi-file-text"
+          title="Posteos"
+          @click="setUsuario(usuario.name)"
+        >
+        </span>
       </router-link>
     </div>
     <div v-show="verDetalles">
@@ -16,6 +21,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   name: "CardUsuario",
   props: {
@@ -24,6 +31,9 @@ export default {
     },
     verDetalles: Boolean,
     linkPosteo: Boolean,
+  },
+  methods: {
+    ...mapMutations(["setUsuario"]),
   },
 };
 </script>
